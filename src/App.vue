@@ -1,10 +1,10 @@
 <template>
-    <div id="app">
-        <div class="office">
-            <Map />
-            <SideMenu />
-        </div>
+  <div id="app">
+    <div class="office">
+      <Map />
+      <SideMenu />
     </div>
+  </div>
 </template>
 
 <script>
@@ -21,26 +21,26 @@ export default {
 
 <style>
 #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    color: #2c3e50;
-    background-color: #fafafa;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  color: #2c3e50;
+  background-color: #fafafa;
+  padding: 24px;
+  box-sizing: border-box;
 }
 
 html,
 body,
 #app {
-    height: 100%;
+  height: 100%;
 }
 
 .office {
-    display: grid;
-    grid-template-columns: 1fr 400px;
-    border-radius: 6px;
-    border: 1px solid #ccd8e4;
-    height: 100%;
-    background: white;
-    margin: 24px;
-    max-width: 1500px;
-    box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  border-radius: 6px;
+  border: 1px solid #ccd8e4;
+  height: 100%;
+  background: white;
+  max-width: 1500px;
 }
 </style>

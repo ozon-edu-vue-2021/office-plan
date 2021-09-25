@@ -89,6 +89,9 @@ export default {
 
 .content .legend .legend__items .legend__item:not(:first-child) {
   margin-top: 16px;
+}
+
+.content .legend .legend__items .legend__item {
   cursor: pointer;
 }
 

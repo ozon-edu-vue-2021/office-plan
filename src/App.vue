@@ -34,6 +34,10 @@ body,
   height: 100%;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .office {
   display: grid;
   grid-template-columns: 1fr 400px;

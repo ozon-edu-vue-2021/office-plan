@@ -1,0 +1,22 @@
+[
+  {
+    "color": "brown",
+    "text": "Тестовая легенда 1",
+    "counter": 5
+  },
+  {
+    "color": "gray",
+    "text": "Тестовая легенда 2",
+    "counter": 32
+  },
+  {
+    "color": "aqua",
+    "text": "Тестовая легенда 3",
+    "counter": 12
+  },
+  {
+    "color": "yellow",
+    "text": "Тестовая легенда 4",
+    "counter": 67
+  }
+]

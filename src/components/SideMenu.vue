@@ -7,14 +7,16 @@
     <div class="content">
       <div class="legend">
         <div v-if="legend.length > 0" class="legend__items">
-          <legend-item
-            v-for="(item, index) in legend"
-            :key="index"
-            :color="item.color"
-            :text="item.text"
-            :counter="item.counter"
-            class="legend__item"
-          />
+          <draggable v-model="legend">
+            <legend-item
+              v-for="(item, index) in legend"
+              :key="index"
+              :color="item.color"
+              :text="item.text"
+              :counter="item.counter"
+              class="legend__item"
+            />
+          </draggable>
         </div>
         <span v-else class="legend--empty">Список пуст</span>
       </div>
@@ -25,18 +27,25 @@
 
 <script>
 import LegendItem from "./LegendItem.vue";
+import Draggable from "vuedraggable";
+import legend from "@/assets/legend.json";
+
 export default {
   components: {
     LegendItem,
+    Draggable,
   },
   data: function () {
     return {
       legend: [],
     };
   },
+  created() {
+    this.loadLegend();
+  },
   methods: {
     loadLegend() {
-      throw new Error("Not implemented");
+      this.legend = legend;
     },
   },
 };
@@ -65,7 +74,6 @@ export default {
 }
 
 .content {
-  margin-top: 24px;
   flex: 1;
 }
 
@@ -79,8 +87,13 @@ export default {
   width: 100%;
 }
 
-.content .legend .legend__items .legend__item {
-  margin-top: 12px;
+.content .legend .legend__items .legend__item:not(:first-child) {
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+.content .legend .legend__items .legend__item.sortable-chosen {
+  opacity: 25%;
 }
 
 .content .legend .legend--empty {

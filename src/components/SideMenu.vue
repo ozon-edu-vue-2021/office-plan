@@ -6,19 +6,24 @@
     </div>
     <div class="content">
       <div class="legend">
-        <div v-if="legend.length > 0" class="legend__items">
-          <draggable v-model="legend">
-            <legend-item
-              v-for="(item, index) in legend"
-              :key="index"
-              :color="item.color"
-              :text="item.text"
-              :counter="item.counter"
-              class="legend__item"
-            />
-          </draggable>
+        <div class="legend__data">
+          <div v-if="legend.length > 0" class="legend__items">
+            <draggable v-model="legend">
+              <legend-item
+                v-for="(item, index) in legend"
+                :key="index"
+                :color="item.color"
+                :text="item.text"
+                :counter="item.counter"
+                class="legend__item"
+              />
+            </draggable>
+          </div>
+          <span v-else class="legend--empty">Список пуст</span>
         </div>
-        <span v-else class="legend--empty">Список пуст</span>
+        <div class="legend__chart">
+          <pie-chart ref="chart" />
+        </div>
       </div>
       <div class="profile"></div>
     </div>
@@ -26,26 +31,58 @@
 </template>
 
 <script>
+import legend from "@/assets/legend.json";
 import LegendItem from "./LegendItem.vue";
 import Draggable from "vuedraggable";
-import legend from "@/assets/legend.json";
+import { Doughnut as PieChart } from "vue-chartjs";
 
 export default {
   components: {
     LegendItem,
     Draggable,
+    PieChart,
   },
   data: function () {
     return {
       legend: [],
+      legendChartData: null,
     };
   },
   created() {
     this.loadLegend();
   },
+  mounted() {
+    this.makeChart();
+  },
   methods: {
     loadLegend() {
       this.legend = legend;
+    },
+    makeChart() {
+      this.legendChartData = {
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        labels: legend.map((it) => it.text),
+        datasets: [
+          {
+            label: "Легенда",
+            backgroundColor: legend.map((legendItem) => legendItem.color),
+            data: legend.map((legendItem) => legendItem.counter),
+          },
+        ],
+      };
+
+      this.$refs["chart"].renderChart(this.legendChartData, {
+        borderWidth: "10px",
+        hoverBackgroundColor: "red",
+        hoverBorderWidth: "10px",
+        legend: {
+          display: false,
+        },
+      });
     },
   },
 };
@@ -57,6 +94,7 @@ export default {
   padding: 24px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .toolbar {
@@ -78,6 +116,13 @@ export default {
 }
 
 .content .legend {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.content .legend .legend__data {
   display: flex;
   height: 100%;
 }

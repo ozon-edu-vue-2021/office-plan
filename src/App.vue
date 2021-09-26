@@ -40,7 +40,7 @@ body,
 
 .office {
   display: grid;
-  grid-template-columns: 1fr 400px;
+  grid-template-columns: 1fr 320px;
   border-radius: 6px;
   border: 1px solid #ccd8e4;
   height: 100%;

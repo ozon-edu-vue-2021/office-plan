@@ -5,6 +5,7 @@
         <div
             v-if="!isLoading"
             class="map-root"
+            @click="onMapClick"
         >
             <MapSVG ref="svg" />
             <Table
@@ -19,12 +20,18 @@
 <script>
 import * as d3 from 'd3';
 
-import MapSVG from '@/assets/map.svg';
-import Table from '@/assets/workPlace.svg';
+import MapSVG from '@/assets/images/map.svg';
+import Table from '@/assets/images/workPlace.svg';
 
-import tables from "@/assets/tables.json";
+import tables from "@/assets/data/tables.json";
 
 export default {
+    props: {
+        isUserOpenned: {
+            type: Boolean,
+            default: false
+        },
+    },
     components: {
         MapSVG,
         Table
@@ -58,20 +65,16 @@ export default {
     methods: {
         drawTables() {
             // создаем группу для рабочик мест
-            const svgTablesGroupPlace = this.g // ??? почему пустой g пропадает в браузере
+            const svgTablesGroupPlace = this.g
                 .append('g')
-                .attr('x', 0)
-                .attr('y', 0)
                 .classed('groupPlaces', true);
 
             this.tables.map(table => {
                 // создает группу для рабочего стола
                 const targetSeat = svgTablesGroupPlace
                     .append('g')
-                    .attr('transform', `translate(${table.x}, ${table.y}) scale(0.5)`) // ??? почему недостаточно x y
-                    .attr('x', `${table.x}`)
-                    .attr('y', `${table.y}`)
-                    .attr('id', `place_${table._id}`)
+                    .attr('transform', `translate(${table.x}, ${table.y}) scale(0.5)`)
+                    .attr('id', `${table._id}`)
                     .classed('employer-place', true);
 
                 // устанавливает стол в группу
@@ -83,11 +86,19 @@ export default {
                     )
                     .classed('table', true)
                     .html(this.tableSVG.html())
-                    .style('fill', table.color ?? 'transparent')
-                    .attr('width', '50px')
-                    .attr('height', '50px');
+                    .style('fill', table.color || 'transparent');
             });
+        },
+        onMapClick(event) {
+        const isSeatTarget = event.target.classList.contains('wrapper-table');
+
+        if (isSeatTarget) {
+            const tableId = event.target.parentNode.parentNode.parentNode.id;
+            this.$emit('table-selected', tableId);
+        } else {
+            this.$emit('table-selected', null);
         }
+    }
     },
 };
 </script>
@@ -110,12 +121,12 @@ export default {
     box-sizing: border-box;
 }
 
-h3 {
-    margin-top: 0px;
-}
-
 >>> svg {
     height: 100%;
     width: 100%;
+}
+
+>>> .table {
+    cursor: pointer;
 }
 </style>

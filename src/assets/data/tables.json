@@ -7,35 +7,35 @@
         "rotate": 80
     },
     {
-        "_id": 0,
+        "_id": 1,
         "x": 20,
         "y": 18,
         "color": "blue",
         "rotate": 80
     },
     {
-        "_id": 0,
+        "_id": 2,
         "x": 30,
         "y": 16,
         "color": "violet",
         "rotate": 80
     },
     {
-        "_id": 0,
+        "_id": 3,
         "x": 12,
         "y": 30,
         "color": "violet",
         "rotate": 80
     },
     {
-        "_id": 0,
+        "_id": 4,
         "x": 22,
         "y": 28,
         "color": "blue",
         "rotate": 80
     },
     {
-        "_id": 0,
+        "_id": 5,
         "x": 32,
         "y": 26,
         "color": "blue",
@@ -43,21 +43,21 @@
     },
 
     {
-        "_id": 0,
+        "_id": 6,
         "x": 14,
         "y": 40,
         "color": "blue",
         "rotate": 80
     },
     {
-        "_id": 0,
+        "_id": 7,
         "x": 24,
         "y": 38,
         "color": "blueviolet",
         "rotate": 80
     },
     {
-        "_id": 0,
+        "_id": 8,
         "x": 34,
         "y": 36,
         "color": "blueviolet",
@@ -65,28 +65,28 @@
     },
 
     {
-        "_id": 1,
+        "_id": 9,
         "x": 80,
         "y": 18,
         "color": "blueviolet",
         "rotate": 80
     },
     {
-        "_id": 1,
+        "_id": 10,
         "x": 80,
         "y": 38,
         "color": "deeppink",
         "rotate": 80
     },
     {
-        "_id": 1,
+        "_id": 11,
         "x": 82,
         "y": 48,
         "color": "blue",
         "rotate": 80
     },
     {
-        "_id": 1,
+        "_id": 12,
         "x": 84,
         "y": 58,
         "color": "deeppink",

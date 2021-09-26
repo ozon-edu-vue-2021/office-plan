@@ -83,7 +83,7 @@ export default {
   methods: {
     drawTables() {
       // создаем группу для рабочик мест
-      const svgTablesGroupPlace = this.g // ??? почему пустой g пропадает в браузере
+      const svgTablesGroupPlace = this.g
         .append("g")
         .classed("groupPlaces", true);
 
@@ -91,7 +91,7 @@ export default {
         // создает группу для рабочего стола
         const targetSeat = svgTablesGroupPlace
           .append("g")
-          .attr("transform", `translate(${table.x}, ${table.y}) scale(0.5)`) // ??? почему недостаточно x y
+          .attr("transform", `translate(${table.x}, ${table.y}) scale(0.5)`)
           .attr("id", table._id)
           .classed("employer-place", true);
 

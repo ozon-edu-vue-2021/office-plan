@@ -17,11 +17,18 @@ import MapSVG from "@/assets/map.svg";
 import Table from "@/assets/workPlace.svg";
 
 import tables from "@/assets/tables.json";
+import legend from "@/assets/legend.json";
 
 export default {
   components: {
     MapSVG,
     Table,
+  },
+  props: {
+    selectedLegendItemIndex: {
+      type: Number,
+      default: -1,
+    },
   },
   data() {
     return {
@@ -31,6 +38,19 @@ export default {
       tableSVG: null,
       tables: [],
     };
+  },
+  watch: {
+    selectedLegendItemIndex(value) {
+      legend.forEach((it) => {
+        this.g.selectAll(`g[group_id='${it.group_id}']`).attr("fill", it.color);
+      });
+
+      if (value > -1) {
+        this.g
+          .selectAll(`g[group_id]:not([group_id='${value}'])`)
+          .attr("fill", "transparent");
+      }
+    },
   },
   created() {
     this.tables = tables;
@@ -68,9 +88,14 @@ export default {
         targetSeat
           .append("g")
           .attr("transform", `rotate(${table.rotate || 0})`)
+          .attr("group_id", table.group_id)
           .classed("table", true)
           .html(this.tableSVG.html())
-          .style("fill", table.color ?? "transparent")
+          .attr(
+            "fill",
+            legend.find((it) => it.group_id === table.group_id)?.color ??
+              "transparent"
+          )
           .attr("width", "50px")
           .attr("height", "50px");
       });

@@ -22,7 +22,10 @@
           <span v-else class="legend--empty">Список пуст</span>
         </div>
         <div class="legend__chart">
-          <pie-chart ref="chart" />
+          <pie-chart
+            :data="this.legendChartData"
+            @slice:hover="onChartItemHover"
+          />
         </div>
       </div>
       <div class="profile"></div>
@@ -34,7 +37,7 @@
 import legend from "@/assets/legend.json";
 import LegendItem from "./LegendItem.vue";
 import Draggable from "vuedraggable";
-import { Doughnut as PieChart } from "vue-chartjs";
+import PieChart from "./PieChart.vue";
 
 export default {
   components: {
@@ -74,15 +77,9 @@ export default {
           },
         ],
       };
-
-      this.$refs["chart"].renderChart(this.legendChartData, {
-        borderWidth: "10px",
-        hoverBackgroundColor: "red",
-        hoverBorderWidth: "10px",
-        legend: {
-          display: false,
-        },
-      });
+    },
+    onChartItemHover({ index }) {
+      this.$emit("legend:item-hover", { legendIndex: index });
     },
   },
 };

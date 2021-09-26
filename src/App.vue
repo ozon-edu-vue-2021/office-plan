@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <div class="office">
-      <Map />
-      <SideMenu />
+      <Map :selectedLegendItemIndex="selectedLegendItemIndex" />
+      <SideMenu
+        @legend:item-hover="selectedLegendItemIndex = $event.legendIndex"
+      />
     </div>
   </div>
 </template>
@@ -15,6 +17,11 @@ export default {
   components: {
     Map,
     SideMenu,
+  },
+  data: function () {
+    return {
+      selectedLegendItemIndex: -1,
+    };
   },
 };
 </script>

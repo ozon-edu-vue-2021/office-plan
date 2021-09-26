@@ -2,12 +2,14 @@
     <div id="app">
         <div class="office">
             <Map
+                :selectedLegendItemIndex="selectedLegendItemIndex"
                 :isUserOpenned="isUserOpenned"
                 @table-selected="onTableSelect"
             />
             <SideMenu
                 :isUserOpenned.sync="isUserOpenned"
                 :person="selectedPerson"
+                @legend:item-hover="selectedLegendItemIndex = $event.legendIndex"
             />
         </div>
     </div>
@@ -26,7 +28,8 @@ export default {
   data() {
     return {
       isUserOpenned: false,
-      selectedPerson: null
+      selectedPerson: null,
+      selectedLegendItemIndex: -1,
     }
   },
   methods: {
@@ -72,7 +75,7 @@ h3 {
 
 .office {
     display: grid;
-    grid-template-columns: 1fr 400px;
+    grid-template-columns: 1fr 320px;
     border-radius: 6px;
     border: 1px solid #ccd8e4;
     height: 100%;

@@ -27,25 +27,33 @@
                 v-if="!isUserOpenned"
                 class="legend"
             >
-                <div
-                    v-if="legend.length > 0"
-                    class="legend__items"
-                >
-                    <draggable v-model="legend">
-                        <legend-item
-                            v-for="(item, index) in legend"
-                            :key="index"
-                            :color="item.color"
-                            :text="item.text"
-                            :counter="item.counter"
-                            class="legend__item"
-                        />
-                    </draggable>
+                <div class="legend__data">
+                    <div
+                        v-if="legend.length > 0"
+                        class="legend__items"
+                    >
+                        <draggable v-model="legend">
+                            <legend-item
+                                v-for="(item, index) in legend"
+                                :key="index"
+                                :color="item.color"
+                                :text="item.text"
+                                :counter="item.counter"
+                                class="legend__item"
+                            />
+                        </draggable>
+                    </div>
+                    <span
+                        v-else
+                        class="legend--empty"
+                    >Список пуст</span>
                 </div>
-                <span
-                    v-else
-                    class="legend--empty"
-                >Список пуст</span>
+                <div class="legend__chart">
+                    <pie-chart
+                        :data="this.legendChartData"
+                        @slice:hover="onChartItemHover"
+                    />
+                </div>
             </div>
             <div
                 v-else
@@ -68,6 +76,7 @@ import LegendItem from "./LegendItem.vue";
 import PersonCard from "./PersonCard.vue";
 import Draggable from "vuedraggable";
 import legend from "@/assets/data/legend.json";
+import PieChart from "./PieChart.vue";
 
 export default {
   props: {
@@ -83,15 +92,20 @@ export default {
   components: {
     LegendItem,
     Draggable,
-    PersonCard
+    PersonCard,
+    PieChart,
   },
   data: function () {
     return {
       legend: [],
+      legendChartData: null,
     };
   },
   created() {
     this.loadLegend();
+  },
+  mounted() {
+    this.makeChart();
   },
   methods: {
     loadLegend() {
@@ -99,7 +113,27 @@ export default {
     },
     closeProfile() {
       this.$emit('update:isUserOpenned', false);
-    }
+    },
+    makeChart() {
+      this.legendChartData = {
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        labels: legend.map((it) => it.text),
+        datasets: [
+          {
+            label: "Легенда",
+            backgroundColor: legend.map((legendItem) => legendItem.color),
+            data: legend.map((legendItem) => legendItem.counter),
+          },
+        ],
+      };
+    },
+    onChartItemHover({ index }) {
+      this.$emit("legend:item-hover", { legendIndex: index });
+    },
   },
 };
 </script>
@@ -110,6 +144,7 @@ export default {
     padding: 24px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .toolbar {
@@ -158,6 +193,13 @@ h3 {
 }
 
 .content .legend {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.content .legend .legend__data {
     display: flex;
     height: 100%;
 }

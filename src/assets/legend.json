@@ -1,22 +1,22 @@
 [
   {
-    "color": "brown",
-    "text": "Тестовая легенда 1",
-    "counter": 5
+    "color": "blueviolet",
+    "text": "Подразделение 1",
+    "counter": 3
   },
   {
-    "color": "gray",
-    "text": "Тестовая легенда 2",
-    "counter": 32
+    "color": "blue",
+    "text": "Подразделение 2",
+    "counter": 6
   },
   {
-    "color": "aqua",
-    "text": "Тестовая легенда 3",
-    "counter": 12
+    "color": "violet",
+    "text": "Подразделение 3",
+    "counter": 3
   },
   {
-    "color": "yellow",
-    "text": "Тестовая легенда 4",
-    "counter": 67
+    "color": "deeppink",
+    "text": "Подразделение 4",
+    "counter": 2
   }
 ]
